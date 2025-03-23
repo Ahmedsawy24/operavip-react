@@ -1,0 +1,263 @@
+/* ========== القواعد العامة ========== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9; /* خلفية فاتحة */
+    color: #333;
+  }
+  
+  /* ========== الحاوية الرئيسية ========== */
+  .main-container {
+    max-width: 1200px;
+    margin: 80px auto; /* إبعاد المحتوى عن الحواف */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  /* ========== العنوان الرئيسي + Breadcrumb ========== */
+  .page-title {
+    font-size: 30px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #000;
+  }
+  .breadcrumb {
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* ========== قسم اختيار التاريخ ========== */
+  .date-selection {
+    margin-bottom: 20px;
+  }
+  .date-selection h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #000;
+  }
+  .dates-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-end;
+  }
+  .date-item {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+  }
+  .date-item label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  .check-btn {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .check-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* ========== تنبيه عدم توفر غرف ========== */
+  .no-availability-alert {
+    background-color: #ffe5e5;
+    color: #b30000;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #b30000;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  /* ========== رسالة نجاح الحجز ========== */
+  .reservation-success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  /* ========== جدول النتائج ========== */
+  .availability-results {
+    overflow-x: auto; /* للتمرير الأفقي في الشاشات الصغيرة */
+    margin-bottom: 20px;
+  }
+  .availability-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .availability-table thead {
+    background-color: #007bff;
+    color: #fff;
+  }
+  .availability-table th,
+  .availability-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    text-align: left;
+  }
+  .availability-table tr:hover {
+    background-color: #f2f2f2;
+  }
+  
+  /* ========== حالات الغرف ========== */
+  .status-available {
+    color: green;
+    font-weight: bold;
+  }
+  .status-booked {
+    color: red;
+    font-weight: bold;
+  }
+  
+  /* ========== أزرار الإجراءات في الجدول ========== */
+  .action-btn {
+    padding: 6px 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .reserve-btn {
+    background-color: #28a745;
+    color: #fff;
+  }
+  .reserve-btn:hover {
+    background-color: #218838;
+  }
+  
+  /* ========== ترقيم الصفحات ========== */
+  .pagination {
+    text-align: center;
+  }
+  .pagination button {
+    margin: 0 5px;
+    padding: 6px 12px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .pagination button:hover {
+    background-color: #0056b3;
+  }
+  .page-number {
+    margin: 0 2px;
+    padding: 6px 12px;
+    background-color: #f2f2f2;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .page-number.active {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  /* ========== Modal (نافذة الحجز) ========== */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none; /* يبدأ مخفيًا */
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  .modal {
+    background-color: #fff;
+    width: 100%;
+    max-width: 600px; /* عرض أقصى */
+    max-height: 80vh; /* ارتفاع أقصى */
+    overflow-y: auto; /* يسمح بالتمرير عند زيادة المحتوى */
+    border-radius: 8px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  .modal h2 {
+    margin-top: 0;
+    font-size: 22px;
+    color: #000;
+    margin-bottom: 10px;
+  }
+  .modal form label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  .modal form input,
+  .modal form select,
+  .modal form textarea {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  .modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .modal-cancel-btn {
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  .modal-cancel-btn:hover {
+    background-color: #5a6268;
+  }
+  .modal-confirm-btn {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  .modal-confirm-btn:hover {
+    background-color: #218838;
+  }
+  
+  /* ========== Responsiveness ========== */
+  @media (max-width: 600px) {
+    .dates-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  

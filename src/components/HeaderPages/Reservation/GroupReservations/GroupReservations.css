@@ -1,0 +1,293 @@
+/* ========== القواعد العامة ========== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9; /* خلفية فاتحة */
+    color: #333;
+  }
+  
+  /* ========== الحاوية الرئيسية ========== */
+  .main-container {
+    max-width: 1200px;
+    margin: 80px auto; /* إبعاد المحتوى عن حواف الصفحة */
+    padding: 20px;
+    background-color: #fff; /* خلفية بيضاء */
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  /* ========== العنوان + Breadcrumb ========== */
+  .page-title {
+    font-size: 32px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #000;
+  }
+  .breadcrumb {
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* ========== قسم البحث والتصفية ========== */
+  .search-section {
+    margin-bottom: 20px;
+  }
+  .search-section h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #000;
+  }
+  .search-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-end;
+  }
+  .search-filters input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .date-filter {
+    display: flex;
+    flex-direction: column;
+  }
+  .date-filter label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .search-btn {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .search-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* ========== رسالة النجاح ========== */
+  .success-message {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  /* ========== جدول الحجوزات ========== */
+  .table-section {
+    overflow-x: auto; /* للتمرير الأفقي على الشاشات الصغيرة */
+    margin-bottom: 20px;
+  }
+  .group-reservations-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .group-reservations-table thead {
+    background-color: #007bff;
+    color: #fff;
+  }
+  .group-reservations-table th,
+  .group-reservations-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    text-align: left;
+  }
+  .group-reservations-table tr:hover {
+    background-color: #f2f2f2;
+  }
+  
+  /* حالات الـ Status */
+  .status-confirmed {
+    color: green;
+    font-weight: bold;
+  }
+  .status-pending {
+    color: orange;
+    font-weight: bold;
+  }
+  .status-cancelled {
+    color: red;
+    font-weight: bold;
+  }
+  
+  /* أزرار الإجراءات */
+  .action-btn {
+    padding: 6px 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  .details-btn {
+    background-color: #6c757d;
+    color: #fff;
+  }
+  .details-btn:hover {
+    background-color: #5a6268;
+  }
+  .modify-btn {
+    background-color: #007bff;
+    color: #fff;
+  }
+  .modify-btn:hover {
+    background-color: #0056b3;
+  }
+  .cancel-btn {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  .cancel-btn:hover {
+    background-color: #c82333;
+  }
+  
+  /* ========== ترقيم الصفحات ========== */
+  .pagination {
+    text-align: center;
+  }
+  .pagination button {
+    margin: 0 5px;
+    padding: 6px 12px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .pagination button:hover {
+    background-color: #0056b3;
+  }
+  .page-number {
+    margin: 0 2px;
+    padding: 6px 12px;
+    background-color: #f2f2f2;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .page-number.active {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  /* ========== Modals (Details, Modify, Cancel) ========== */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none; /* يبدأ مخفيًا */
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  .modal {
+    background-color: #fff;
+    width: 100%;
+    max-width: 600px; /* عرض أقصى */
+    max-height: 80vh; /* ارتفاع أقصى */
+    overflow-y: auto; /* يسمح بالتمرير في حال زاد المحتوى */
+    border-radius: 8px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  .modal h2 {
+    margin-top: 0;
+    font-size: 22px;
+    color: #000;
+    margin-bottom: 10px;
+  }
+  .modal-content {
+    margin-bottom: 20px;
+  }
+  .modal-content p {
+    margin: 8px 0;
+  }
+  
+  /* أزرار المودال */
+  .modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  .modal-close-btn,
+  .modal-cancel-btn,
+  .modal-save-btn,
+  .modal-confirm-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .modal-close-btn,
+  .modal-cancel-btn {
+    background-color: #6c757d;
+    color: #fff;
+  }
+  .modal-close-btn:hover,
+  .modal-cancel-btn:hover {
+    background-color: #5a6268;
+  }
+  .modal-save-btn {
+    background-color: #007bff;
+    color: #fff;
+  }
+  .modal-save-btn:hover {
+    background-color: #0056b3;
+  }
+  .modal-confirm-btn {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  .modal-confirm-btn:hover {
+    background-color: #c82333;
+  }
+  
+  /* الحقول داخل نموذج التعديل */
+  .modal form label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  .modal form input,
+  .modal form select,
+  .modal form textarea {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  /* ========== Responsiveness ========== */
+  @media (max-width: 600px) {
+    .search-filters {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  
