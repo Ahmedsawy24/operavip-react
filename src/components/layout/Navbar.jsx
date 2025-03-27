@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import './Navbar.css';
+import { Link } from 'react-router-dom';
+
 
 const Navbar = ({ children }) => {
   const sidebarRef = useRef(null);
@@ -24,14 +26,20 @@ const Navbar = ({ children }) => {
     // Navigation menu toggler
     document.querySelectorAll('.nav ul li > a').forEach(item => {
       item.addEventListener('click', function (event) {
-        event.preventDefault();
         const dropdown = this.nextElementSibling;
-        document.querySelectorAll('.dropdown-menu').forEach(menu => {
-          if (menu !== dropdown) menu.classList.remove('show');
-        });
-        dropdown.classList.toggle('show');
+    
+        if (dropdown && dropdown.classList.contains('dropdown-menu')) {
+          event.preventDefault();
+    
+          document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            if (menu !== dropdown) menu.classList.remove('show');
+          });
+    
+          dropdown.classList.toggle('show');
+        }
       });
     });
+    
 
     // Icon dropdowns
     document.querySelectorAll('.dropdown-icon').forEach(icon => {
@@ -259,7 +267,7 @@ const Navbar = ({ children }) => {
               <li className="dropdown">
                 <a href="#">Reservations</a>
                 <ul className="dropdown-menu">
-                  <li><a href="#">Create New Reservation</a></li>
+                  <li><Link to="/reservations/create">Create New Reservation</Link></li>
                   <li><a href="#">Modify or Cancel Booking</a></li>
                   <li><a href="#">View Upcoming Reservations</a></li>
                   <li><a href="#">Check Availability</a></li>
