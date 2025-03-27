@@ -1,57 +1,96 @@
 import React, { useEffect, useRef } from 'react';
 import './Navbar.css';
-import { Link } from 'react-router-dom';
-
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = ({ children }) => {
   const sidebarRef = useRef(null);
   const overlayRef = useRef(null);
+  const location = useLocation();
 
+  const dummySearchData = [
+    { reservation_id: '340023', guest_name: 'Abdullah Alhammami', room_number: '204', email: 'abdullah@example.com' },
+    { reservation_id: '340024', guest_name: 'John Doe', room_number: '305', email: 'john.doe@example.com' }
+  ];
+
+  // 1. إغلاق القوائم عند تغيير الصفحة
   useEffect(() => {
-    const dummySearchData = [
-      { reservation_id: '340023', guest_name: 'Abdullah Alhammami', room_number: '204', email: 'abdullah@example.com' },
-      { reservation_id: '340024', guest_name: 'John Doe', room_number: '305', email: 'john.doe@example.com' }
-    ];
+    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+      menu.classList.remove('show');
+    });
+  }, [location]);
 
-    // Dropdown toggler
+  // 2. إغلاق عند النقر خارج القائمة (تحديث بناءً على الكود القديم)
+  useEffect(() => {
+    const handleGlobalClick = (event) => {
+      const isOutsideDropdown = !event.target.closest('.dropdown-icon') &&
+                                  !event.target.closest('.nav ul li');
+      const isOutsideSearch = !event.target.closest('.search-icon');
+      const isOutsideSidebar = !event.target.closest('.sidebar');
+
+      if (isOutsideDropdown) {
+        document.querySelectorAll('.dropdown-content, .dropdown-menu').forEach(menu => {
+          menu.classList.remove('show');
+        });
+      }
+
+      if (isOutsideSearch) {
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+          searchInput.style.display = "none";
+        }
+      }
+
+      if (isOutsideSidebar) {
+        document.querySelectorAll('.submenu').forEach(menu => menu.classList.remove('show'));
+        document.querySelectorAll('.sidebar ul > li').forEach(item => item.classList.remove('active'));
+      }
+    };
+    document.addEventListener('click', handleGlobalClick);
+    return () => document.removeEventListener('click', handleGlobalClick);
+  }, []);
+
+  // 3. فتح القوائم المنسدلة من النيفيقيشن
+  useEffect(() => {
+    document.querySelectorAll('.nav ul li > a').forEach(item => {
+      item.addEventListener('click', function (event) {
+        if (this.getAttribute('href') === '#') {
+          event.preventDefault();
+          const dropdown = this.nextElementSibling;
+          if (!dropdown) return;
+          document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            if (menu !== dropdown) menu.classList.remove('show');
+          });
+          dropdown.classList.toggle('show');
+        }
+      });
+    });
+  }, []);
+
+  // دمج تعريف الدوال وإضافة مستمعين للنقر داخل useEffect واحد
+  useEffect(() => {
+    // دالة تبديل القوائم المنسدلة
     window.toggleDropdown = (event, id) => {
       event.stopPropagation();
       const dropdown = document.getElementById(id);
+      if (!dropdown) return;
       document.querySelectorAll('.dropdown-content').forEach(menu => {
         if (menu !== dropdown) menu.classList.remove('show');
       });
       dropdown.classList.toggle('show');
     };
 
-    // Navigation menu toggler
-    document.querySelectorAll('.nav ul li > a').forEach(item => {
-      item.addEventListener('click', function (event) {
-        const dropdown = this.nextElementSibling;
-    
-        if (dropdown && dropdown.classList.contains('dropdown-menu')) {
-          event.preventDefault();
-    
-          document.querySelectorAll('.dropdown-menu').forEach(menu => {
-            if (menu !== dropdown) menu.classList.remove('show');
-          });
-    
-          dropdown.classList.toggle('show');
-        }
-      });
-    });
-    
-
-    // Icon dropdowns
+    // مستمع للنقر على أيقونات القائمة المنسدلة
     document.querySelectorAll('.dropdown-icon').forEach(icon => {
       icon.addEventListener('click', function (event) {
-        window.toggleDropdown(event, this.nextElementSibling.id);
+        window.toggleDropdown(event, this.nextElementSibling?.id);
       });
     });
 
-    // Search
+    // خاصية البحث
     window.performLiveSearch = () => {
-      const input = document.getElementById('searchInput').value.toLowerCase();
+      const input = document.getElementById('searchInput')?.value.toLowerCase();
       const tbody = document.querySelector('#searchResultsTable tbody');
+      if (!input || !tbody) return;
       tbody.innerHTML = '';
 
       const filtered = dummySearchData.filter(item =>
@@ -88,10 +127,11 @@ const Navbar = ({ children }) => {
       alert('All notifications marked as read.');
     };
 
-    // Sidebar toggle
+    // Sidebar toggle (غير مستخدمة بشكل مباشر لكن يمكن استخدامها لاحقاً)
     const handleSidebarToggle = () => {
       const sidebar = sidebarRef.current;
       const overlay = overlayRef.current;
+      if (!sidebar || !overlay) return;
       sidebar.classList.toggle('open');
       overlay.classList.toggle('show');
       if (!sidebar.classList.contains('open')) {
@@ -104,10 +144,11 @@ const Navbar = ({ children }) => {
       document.querySelectorAll('.sidebar ul > li').forEach(item => item.classList.remove('active'));
     };
 
-    // Submenu
+    // Submenu toggler
     window.toggleSubmenu = (event, id) => {
       event.stopPropagation();
       const submenu = document.getElementById(id);
+      if (!submenu) return;
       const parentLi = event.currentTarget;
 
       document.querySelectorAll('.submenu').forEach(menu => {
@@ -120,23 +161,12 @@ const Navbar = ({ children }) => {
       submenu.classList.toggle('show');
       parentLi.classList.toggle('active');
     };
-
-    // Close dropdowns on outside click
-    document.addEventListener('click', (event) => {
-      const isOutside = !event.target.closest('.dropdown-icon') && !event.target.closest('.nav ul li');
-      if (isOutside) {
-        document.querySelectorAll('.dropdown-content').forEach(menu => {
-          menu.classList.remove('show');
-        });
-      }
-    });
   }, []);
 
   return (
     <>
       {/* Sidebar */}
       <div className="sidebar" id="sidebar" ref={sidebarRef}>
-
         <ul>
           {/* Arrivals */}
           <li className="toggle-submenu" onClick={(event) => window.toggleSubmenu(event, 'arrivals')}>
@@ -241,20 +271,22 @@ const Navbar = ({ children }) => {
 
       {/* Overlay for Sidebar */}
       <div className="overlay" id="overlay" ref={overlayRef} onClick={() => {
-  sidebarRef.current.classList.toggle("open");
-  overlayRef.current.classList.toggle("show");
-}}></div>
-
+        if (sidebarRef.current && overlayRef.current) {
+          sidebarRef.current.classList.toggle("open");
+          overlayRef.current.classList.toggle("show");
+        }
+      }}></div>
 
       {/* Header Section */}
       <header className="header">
         <div className="header-left">
           {/* Button to Open Sidebar */}
           <span className="menu-icon" onClick={() => {
-  sidebarRef.current.classList.toggle("open");
-  overlayRef.current.classList.toggle("show");
-}}>
-
+            if (sidebarRef.current && overlayRef.current) {
+              sidebarRef.current.classList.toggle("open");
+              overlayRef.current.classList.toggle("show");
+            }
+          }}>
             <i className="fas fa-bars"></i>
           </span>
           <div className="logo">OperaVIP</div>
@@ -265,10 +297,11 @@ const Navbar = ({ children }) => {
           <nav className="nav">
             <ul>
               <li className="dropdown">
+                {/* استخدم Link هنا حتى ينقل المستخدم عند الضغط */}
                 <a href="#">Reservations</a>
                 <ul className="dropdown-menu">
                   <li><Link to="/reservations/create">Create New Reservation</Link></li>
-                  <li><a href="#">Modify or Cancel Booking</a></li>
+                  <li><Link to="/reservations/modify">Modify or Cancel Booking</Link></li>
                   <li><a href="#">View Upcoming Reservations</a></li>
                   <li><a href="#">Check Availability</a></li>
                   <li><a href="#">Group Reservations</a></li>
@@ -329,7 +362,7 @@ const Navbar = ({ children }) => {
             <div className="icon-container">
               <span className="icon search-icon" onClick={() => {
                 const searchInput = document.getElementById("searchInput");
-                if(searchInput){
+                if (searchInput) {
                   searchInput.style.display = searchInput.style.display === "none" ? "block" : "none";
                 }
               }}>
@@ -458,12 +491,10 @@ const Navbar = ({ children }) => {
         </div>
       </header>
       {children && (
-  <main className="main-content">
-    {children}
-  </main>
-)}
-
-
+        <main className="main-content">
+          {children}
+        </main>
+      )}
     </>
   );
 };
