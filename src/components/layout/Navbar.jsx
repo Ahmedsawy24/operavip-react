@@ -307,7 +307,7 @@ const Navbar = ({ children }) => {
               <li className="dropdown">
                 <a href="#">Front Desk</a>
                 <ul className="dropdown-menu">
-                <li><Link to="/frontdesk/check-in-guests">Check-In Guests</Link></li>
+                <li><Link to="/frontdesk/checkinguests">Check-In Guests</Link></li>
                   <li><a href="#">Walk-In Reservations</a></li>
                   <li><a href="#">Upgrade/Downgrade Room</a></li>
                   <li><a href="#">Early Check-Out Processing</a></li>
