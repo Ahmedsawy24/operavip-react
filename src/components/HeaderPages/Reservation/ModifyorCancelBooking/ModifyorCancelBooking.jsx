@@ -3,83 +3,96 @@ import './ModifyorCancelBooking.css';
 
 const ModifyorCancelBooking = () => {
   useEffect(() => {
-    // البحث: زر البحث (Demo)
-    const searchBtn = document.getElementById('searchBtn');
+    // البحث
+    const searchBtn = document.getElementById('mcb-searchBtn');
     if (searchBtn) {
-      searchBtn.addEventListener('click', function () {
-        alert('Search functionality is not implemented in this demo.');
+      searchBtn.addEventListener('click', () => {
+        alert('Search functionality (demo).');
       });
     }
 
-    // أزرار "Modify"
-    const modifyButtons = document.querySelectorAll('.modify-btn');
-    const modifyModalOverlay = document.getElementById('modifyModalOverlay');
-    const modifyModalCancel = document.getElementById('modifyModalCancel');
-    const modifyForm = document.getElementById('modifyForm');
-    const modifyModalTitle = document.getElementById('modifyModalTitle');
+    // أزرار التعديل
+    const modifyButtons = document.querySelectorAll('.mcb-modify-btn');
+    const modifyModalOverlay = document.getElementById('mcb-modifyModalOverlay');
+    const modifyModalCancel = document.getElementById('mcb-modifyModalCancel');
+    const modifyForm = document.getElementById('mcb-modifyForm');
+    const modifyModalTitle = document.getElementById('mcb-modifyModalTitle');
 
-    modifyButtons.forEach(function (btn) {
-      btn.addEventListener('click', function () {
+    modifyButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
         const bookingNumber = btn.getAttribute('data-booking');
         const guestName = btn.getAttribute('data-guest');
+        if (modifyModalTitle) {
+          modifyModalTitle.textContent = `Modify Booking - #${bookingNumber}`;
+        }
+        const modGuestName = document.getElementById('mcb-modGuestName');
+        const modEmail = document.getElementById('mcb-modEmail');
+        const modPhone = document.getElementById('mcb-modPhone');
+        const modArrival = document.getElementById('mcb-modArrival');
+        const modDeparture = document.getElementById('mcb-modDeparture');
+        const modRoomType = document.getElementById('mcb-modRoomType');
+        const modNumRooms = document.getElementById('mcb-modNumRooms');
+        const modAdults = document.getElementById('mcb-modAdults');
+        const modChildren = document.getElementById('mcb-modChildren');
+        const modPayment = document.getElementById('mcb-modPayment');
+        const modRequests = document.getElementById('mcb-modRequests');
 
-        // تعبئة الحقول (Demo)
-        modifyModalTitle.textContent = `Modify Booking - #${bookingNumber}`;
-        document.getElementById('modGuestName').value = guestName;
-        document.getElementById('modEmail').value = "guest@example.com";
-        document.getElementById('modPhone').value = "1234567890";
-        document.getElementById('modArrival').value = "2025-03-15";
-        document.getElementById('modDeparture').value = "2025-03-18";
-        document.getElementById('modRoomType').value = "Double";
-        document.getElementById('modNumRooms').value = "1";
-        document.getElementById('modAdults').value = "2";
-        document.getElementById('modChildren').value = "0";
-        document.getElementById('modPayment').value = "Cash";
-        document.getElementById('modRequests').value = "";
+        if (modGuestName) modGuestName.value = guestName;
+        if (modEmail) modEmail.value = "guest@example.com";
+        if (modPhone) modPhone.value = "1234567890";
+        if (modArrival) modArrival.value = "2025-03-15";
+        if (modDeparture) modDeparture.value = "2025-03-18";
+        if (modRoomType) modRoomType.value = "Double";
+        if (modNumRooms) modNumRooms.value = "1";
+        if (modAdults) modAdults.value = "2";
+        if (modChildren) modChildren.value = "0";
+        if (modPayment) modPayment.value = "Cash";
+        if (modRequests) modRequests.value = "";
 
         if (modifyModalOverlay) modifyModalOverlay.style.display = 'flex';
       });
     });
 
     if (modifyModalCancel) {
-      modifyModalCancel.addEventListener('click', function () {
+      modifyModalCancel.addEventListener('click', () => {
         if (modifyModalOverlay) modifyModalOverlay.style.display = 'none';
       });
     }
 
     if (modifyForm) {
-      modifyForm.addEventListener('submit', function (e) {
+      modifyForm.addEventListener('submit', (e) => {
         e.preventDefault();
         alert('Booking modified successfully.');
         if (modifyModalOverlay) modifyModalOverlay.style.display = 'none';
       });
     }
 
-    // أزرار "Cancel"
-    const cancelButtons = document.querySelectorAll('.cancel-btn');
-    const cancelModalOverlay = document.getElementById('cancelModalOverlay');
-    const cancelModalText = document.getElementById('cancelModalText');
-    const cancelModalNo = document.getElementById('cancelModalNo');
-    const cancelModalYes = document.getElementById('cancelModalYes');
+    // أزرار الإلغاء
+    const cancelButtons = document.querySelectorAll('.mcb-cancel-btn');
+    const cancelModalOverlay = document.getElementById('mcb-cancelModalOverlay');
+    const cancelModalText = document.getElementById('mcb-cancelModalText');
+    const cancelModalNo = document.getElementById('mcb-cancelModalNo');
+    const cancelModalYes = document.getElementById('mcb-cancelModalYes');
 
-    cancelButtons.forEach(function (btn) {
-      btn.addEventListener('click', function () {
+    cancelButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
         const bookingNumber = btn.getAttribute('data-booking');
         const guestName = btn.getAttribute('data-guest');
-
-        cancelModalText.textContent = `Are you sure you want to cancel Booking #${bookingNumber} for ${guestName}?`;
+        if (cancelModalText) {
+          cancelModalText.textContent = `Are you sure you want to cancel Booking #${bookingNumber} for ${guestName}?`;
+        }
         if (cancelModalOverlay) cancelModalOverlay.style.display = 'flex';
       });
     });
 
     if (cancelModalNo) {
-      cancelModalNo.addEventListener('click', function () {
+      cancelModalNo.addEventListener('click', () => {
         if (cancelModalOverlay) cancelModalOverlay.style.display = 'none';
       });
     }
 
     if (cancelModalYes) {
-      cancelModalYes.addEventListener('click', function () {
+      cancelModalYes.addEventListener('click', () => {
         alert('Booking canceled successfully.');
         if (cancelModalOverlay) cancelModalOverlay.style.display = 'none';
       });
@@ -88,28 +101,22 @@ const ModifyorCancelBooking = () => {
 
   return (
     <>
-      {/* Main Container (بدون هيدر وسايد بار) */}
-      <div className="main-container">
-        {/* عنوان الصفحة + Breadcrumb */}
-        <header className="page-header">
+      <div className="mcb-main-container">
+        <header className="mcb-page-header">
           <h1>Modify or Cancel Booking</h1>
-          <nav className="breadcrumb">
+          <nav className="mcb-breadcrumb">
             Home &gt; Reservations &gt; Modify or Cancel Booking
           </nav>
         </header>
-
-        {/* منطقة البحث */}
-        <section className="search-area">
+        <section className="mcb-search-area">
           <h2>Search for Booking</h2>
-          <div className="search-box">
-            <input type="text" id="searchInput" placeholder="Enter Guest Name or Booking Number" />
-            <button id="searchBtn">🔍 Search</button>
+          <div className="mcb-search-box">
+            <input type="text" id="mcb-searchInput" placeholder="Enter Guest Name or Booking Number" />
+            <button id="mcb-searchBtn">🔍 Search</button>
           </div>
         </section>
-
-        {/* جدول نتائج البحث */}
-        <section className="results-section">
-          <table className="results-table">
+        <section className="mcb-results-section">
+          <table className="mcb-results-table">
             <thead>
               <tr>
                 <th>Booking #</th>
@@ -121,17 +128,17 @@ const ModifyorCancelBooking = () => {
                 <th>Actions</th>
               </tr>
             </thead>
-            <tbody id="resultsBody">
+            <tbody id="mcb-resultsBody">
               <tr>
                 <td>10234</td>
                 <td>Abdullah Ahmed</td>
                 <td>15-03-2025</td>
                 <td>18-03-2025</td>
                 <td>Double</td>
-                <td className="status-confirmed">Confirmed</td>
+                <td className="mcb-status-confirmed">Confirmed</td>
                 <td>
-                  <button className="action-btn modify-btn" data-booking="10234" data-guest="Abdullah Ahmed">Modify</button>
-                  <button className="action-btn cancel-btn" data-booking="10234" data-guest="Abdullah Ahmed">Cancel</button>
+                  <button className="mcb-action-btn mcb-modify-btn" data-booking="10234" data-guest="Abdullah Ahmed">Modify</button>
+                  <button className="mcb-action-btn mcb-cancel-btn" data-booking="10234" data-guest="Abdullah Ahmed">Cancel</button>
                 </td>
               </tr>
             </tbody>
@@ -140,74 +147,74 @@ const ModifyorCancelBooking = () => {
       </div>
 
       {/* Modify Booking Modal */}
-      <div className="modal-overlay" id="modifyModalOverlay">
-        <div className="modal">
-          <h2 id="modifyModalTitle">Modify Booking - #10234</h2>
-          <form id="modifyForm">
-            <label htmlFor="modGuestName">Guest Name</label>
-            <input type="text" id="modGuestName" name="modGuestName" required />
+      <div className="mcb-modal-overlay" id="mcb-modifyModalOverlay">
+        <div className="mcb-modal">
+          <h2 id="mcb-modifyModalTitle">Modify Booking - #10234</h2>
+          <form id="mcb-modifyForm">
+            <label htmlFor="mcb-modGuestName">Guest Name</label>
+            <input type="text" id="mcb-modGuestName" name="mcb-modGuestName" required />
 
-            <label htmlFor="modEmail">Email</label>
-            <input type="email" id="modEmail" name="modEmail" required />
+            <label htmlFor="mcb-modEmail">Email</label>
+            <input type="email" id="mcb-modEmail" name="mcb-modEmail" required />
 
-            <label htmlFor="modPhone">Phone Number</label>
-            <input type="text" id="modPhone" name="modPhone" required />
+            <label htmlFor="mcb-modPhone">Phone Number</label>
+            <input type="text" id="mcb-modPhone" name="mcb-modPhone" required />
 
-            <label htmlFor="modArrival">Arrival Date</label>
-            <input type="date" id="modArrival" name="modArrival" required />
+            <label htmlFor="mcb-modArrival">Arrival Date</label>
+            <input type="date" id="mcb-modArrival" name="mcb-modArrival" required />
 
-            <label htmlFor="modDeparture">Departure Date</label>
-            <input type="date" id="modDeparture" name="modDeparture" required />
+            <label htmlFor="mcb-modDeparture">Departure Date</label>
+            <input type="date" id="mcb-modDeparture" name="mcb-modDeparture" required />
 
-            <label htmlFor="modRoomType">Room Type</label>
-            <select id="modRoomType" name="modRoomType" required>
+            <label htmlFor="mcb-modRoomType">Room Type</label>
+            <select id="mcb-modRoomType" name="mcb-modRoomType" required>
               <option value="">Select room type</option>
               <option value="Single">Single</option>
               <option value="Double">Double</option>
               <option value="Suite">Suite</option>
             </select>
 
-            <label htmlFor="modNumRooms">Number of Rooms</label>
-            <input type="number" id="modNumRooms" name="modNumRooms" min="1" defaultValue="1" required />
+            <label htmlFor="mcb-modNumRooms">Number of Rooms</label>
+            <input type="number" id="mcb-modNumRooms" name="mcb-modNumRooms" min="1" defaultValue="1" required />
 
-            <div className="form-row">
+            <div className="mcb-form-row">
               <div>
-                <label htmlFor="modAdults">Adults</label>
-                <input type="number" id="modAdults" name="modAdults" min="1" defaultValue="1" required />
+                <label htmlFor="mcb-modAdults">Adults</label>
+                <input type="number" id="mcb-modAdults" name="mcb-modAdults" min="1" defaultValue="1" required />
               </div>
               <div>
-                <label htmlFor="modChildren">Children</label>
-                <input type="number" id="modChildren" name="modChildren" min="0" defaultValue="0" required />
+                <label htmlFor="mcb-modChildren">Children</label>
+                <input type="number" id="mcb-modChildren" name="mcb-modChildren" min="0" defaultValue="0" required />
               </div>
             </div>
 
-            <label htmlFor="modPayment">Payment Method</label>
-            <select id="modPayment" name="modPayment" required>
+            <label htmlFor="mcb-modPayment">Payment Method</label>
+            <select id="mcb-modPayment" name="mcb-modPayment" required>
               <option value="">Select payment method</option>
               <option value="Cash">Cash</option>
               <option value="Card">Card</option>
               <option value="Bank Transfer">Bank Transfer</option>
             </select>
 
-            <label htmlFor="modRequests">Special Requests</label>
-            <textarea id="modRequests" name="modRequests" rows="4" placeholder="Enter any special requests"></textarea>
+            <label htmlFor="mcb-modRequests">Special Requests</label>
+            <textarea id="mcb-modRequests" name="mcb-modRequests" rows="4" placeholder="Enter any special requests"></textarea>
 
-            <div className="modal-buttons">
-              <button type="button" className="modal-cancel" id="modifyModalCancel">Cancel</button>
-              <button type="submit" className="modal-save" id="modifyModalSave">Save Changes</button>
+            <div className="mcb-modal-buttons">
+              <button type="button" className="mcb-modal-cancel" id="mcb-modifyModalCancel">Cancel</button>
+              <button type="submit" className="mcb-modal-save" id="mcb-modifyModalSave">Save Changes</button>
             </div>
           </form>
         </div>
       </div>
 
       {/* Cancel Confirmation Modal */}
-      <div className="modal-overlay" id="cancelModalOverlay">
-        <div className="modal cancel-modal">
+      <div className="mcb-modal-overlay" id="mcb-cancelModalOverlay">
+        <div className="mcb-modal mcb-cancel-modal">
           <h2>⚠️ Confirm Cancellation</h2>
-          <p id="cancelModalText">Are you sure you want to cancel Booking #10234 for Abdullah Ahmed?</p>
-          <div className="modal-buttons">
-            <button type="button" className="modal-cancel" id="cancelModalNo">No, Go Back</button>
-            <button type="button" className="modal-confirm" id="cancelModalYes">Yes, Cancel Booking</button>
+          <p id="mcb-cancelModalText">Are you sure you want to cancel Booking #10234 for Abdullah Ahmed?</p>
+          <div className="mcb-modal-buttons">
+            <button type="button" className="mcb-modal-cancel" id="mcb-cancelModalNo">No, Go Back</button>
+            <button type="button" className="mcb-modal-confirm" id="mcb-cancelModalYes">Yes, Cancel Booking</button>
           </div>
         </div>
       </div>

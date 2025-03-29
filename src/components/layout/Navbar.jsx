@@ -19,11 +19,12 @@ const Navbar = ({ children }) => {
     });
   }, [location]);
 
-  // 2. إغلاق عند النقر خارج القائمة (تحديث بناءً على الكود القديم)
+  // 2. إغلاق عند النقر خارج القائمة (بتعديل شرط إغلاق القوائم الرئيسية بنفس منطق الأيقونات)
   useEffect(() => {
     const handleGlobalClick = (event) => {
       const isOutsideDropdown = !event.target.closest('.dropdown-icon') &&
-                                  !event.target.closest('.nav ul li');
+                                  !event.target.closest('.dropdown-menu') &&
+                                  !event.target.closest('.dropdown-content');
       const isOutsideSearch = !event.target.closest('.search-icon');
       const isOutsideSidebar = !event.target.closest('.sidebar');
 
@@ -66,7 +67,7 @@ const Navbar = ({ children }) => {
     });
   }, []);
 
-  // دمج تعريف الدوال وإضافة مستمعين للنقر داخل useEffect واحد
+  // 4. دمج تعريف الدوال وإضافة مستمعين للنقر داخل useEffect واحد
   useEffect(() => {
     // دالة تبديل القوائم المنسدلة
     window.toggleDropdown = (event, id) => {
@@ -280,7 +281,6 @@ const Navbar = ({ children }) => {
       {/* Header Section */}
       <header className="header">
         <div className="header-left">
-          {/* Button to Open Sidebar */}
           <span className="menu-icon" onClick={() => {
             if (sidebarRef.current && overlayRef.current) {
               sidebarRef.current.classList.toggle("open");
@@ -291,26 +291,23 @@ const Navbar = ({ children }) => {
           </span>
           <div className="logo">OperaVIP</div>
         </div>
-
-        {/* Navigation & Icons Container */}
         <div className="nav-icons">
           <nav className="nav">
             <ul>
               <li className="dropdown">
-                {/* استخدم Link هنا حتى ينقل المستخدم عند الضغط */}
                 <a href="#">Reservations</a>
                 <ul className="dropdown-menu">
                   <li><Link to="/reservations/create">Create New Reservation</Link></li>
                   <li><Link to="/reservations/modify">Modify or Cancel Booking</Link></li>
-                  <li><a href="#">View Upcoming Reservations</a></li>
-                  <li><a href="#">Check Availability</a></li>
-                  <li><a href="#">Group Reservations</a></li>
+                  <li><Link to="/reservations/upcoming">View Upcoming Reservations</Link></li>
+                  <li><Link to="/reservations/check-availability">Check Availability</Link></li>
+                  <li><Link to="/reservations/group-reservations">Group Reservations</Link></li>
                 </ul>
               </li>
               <li className="dropdown">
                 <a href="#">Front Desk</a>
                 <ul className="dropdown-menu">
-                  <li><a href="#">Check-In Guests</a></li>
+                <li><Link to="/frontdesk/check-in-guests">Check-In Guests</Link></li>
                   <li><a href="#">Walk-In Reservations</a></li>
                   <li><a href="#">Upgrade/Downgrade Room</a></li>
                   <li><a href="#">Early Check-Out Processing</a></li>
@@ -355,10 +352,7 @@ const Navbar = ({ children }) => {
               </li>
             </ul>
           </nav>
-
-          {/* Right Icons Section with Detailed Dropdowns */}
           <div className="icons">
-            {/* Search Icon with Detailed Dropdown */}
             <div className="icon-container">
               <span className="icon search-icon" onClick={() => {
                 const searchInput = document.getElementById("searchInput");
@@ -382,13 +376,10 @@ const Navbar = ({ children }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {/* Dummy search data will be injected here */}
                   </tbody>
                 </table>
               </div>
             </div>
-
-            {/* Calendar Icon with Detailed Dropdown */}
             <div className="icon-container">
               <span className="icon dropdown-icon" onClick={(event) => window.toggleDropdown(event, 'calendarDropdown')}>
                 <i className="fas fa-calendar-alt"></i>
@@ -419,8 +410,6 @@ const Navbar = ({ children }) => {
                 <button onClick={() => alert('Add New Event')}>Add New Event</button>
               </div>
             </div>
-
-            {/* Notifications Icon with Detailed Dropdown */}
             <div className="icon-container">
               <span className="icon dropdown-icon" onClick={(event) => window.toggleDropdown(event, 'notificationsDropdown')}>
                 <i className="fas fa-bell"></i>
@@ -435,8 +424,6 @@ const Navbar = ({ children }) => {
                 <a href="#" onClick={() => alert('View More Notifications')}>View More</a>
               </div>
             </div>
-
-            {/* Messages Icon with Detailed Dropdown */}
             <div className="icon-container">
               <span className="icon dropdown-icon" onClick={(event) => window.toggleDropdown(event, 'messagesDropdown')}>
                 <i className="fas fa-comment-alt"></i>
@@ -450,8 +437,6 @@ const Navbar = ({ children }) => {
                 <button onClick={() => alert('Create New Message')}>Create New Message</button>
               </div>
             </div>
-
-            {/* Settings Icon with Detailed Dropdown */}
             <div className="icon-container">
               <span className="icon dropdown-icon" onClick={(event) => window.toggleDropdown(event, 'settingsDropdown')}>
                 <i className="fas fa-cog"></i>
@@ -465,8 +450,6 @@ const Navbar = ({ children }) => {
                 </ul>
               </div>
             </div>
-
-            {/* Profile Icon with Detailed Dropdown */}
             <div className="icon-container">
               <span className="icon dropdown-icon" onClick={(event) => window.toggleDropdown(event, 'profileDropdown')}>
                 <i className="fas fa-user"></i>
@@ -486,7 +469,6 @@ const Navbar = ({ children }) => {
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </header>

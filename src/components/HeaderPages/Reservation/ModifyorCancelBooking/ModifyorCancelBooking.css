@@ -5,65 +5,60 @@ body {
   background-color: #808080; /* خلفية رمادية */
 }
 
-/* إزالة تنسيقات الهيدر والسايد بار (لأننا نريد شاشة كاملة) */
-.header,
-.sidebar {
-  display: none;
-}
+/* ====== Header & Sidebar Styles (من المفترض أنها تديرها صفحة Navbar) ====== */
 
 /* ====== Main Container ====== */
-.main-container {
-  margin: 0; /* عرض كامل بدون مساحة للسيد بار */
-  padding: 20px;
+.mcb-main-container {
+  margin-left: 250px; /* لتفادي تغطية المحتوى بالسايد بار */
+  padding: 80px 20px 20px 20px;
   background-color: #f2f2f2;
   min-height: 100vh;
   box-sizing: border-box;
 }
 
-/* ====== Page Header + Breadcrumb ====== */
-.page-header {
+/* ====== Page Header & Breadcrumb ====== */
+.mcb-page-header {
   background-color: #fff;
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 5px;
-  text-align: center;
 }
-.page-header h1 {
+.mcb-page-header h1 {
   margin: 0;
   font-size: 28px;
   color: #000;
 }
-.breadcrumb {
+.mcb-breadcrumb {
   font-size: 14px;
   color: #777;
   margin-top: 5px;
 }
 
 /* ====== Search Area ====== */
-.search-area {
+.mcb-search-area {
   background-color: #fff;
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 5px;
 }
-.search-area h2 {
+.mcb-search-area h2 {
   margin-top: 0;
   font-size: 18px;
   color: #000;
   margin-bottom: 10px;
 }
-.search-box {
+.mcb-search-box {
   display: flex;
   gap: 10px;
 }
-.search-box input[type="text"] {
+.mcb-search-box input[type="text"] {
   flex: 1;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
-.search-box button {
+.mcb-search-box button {
   padding: 10px 20px;
   background-color: #007bff;
   color: #fff;
@@ -71,36 +66,39 @@ body {
   border-radius: 5px;
   cursor: pointer;
 }
-.search-box button:hover {
+.mcb-search-box button:hover {
   background-color: #0056b3;
 }
 
-/* ====== Results Table ====== */
-.results-section {
+/* ====== Results Section ====== */
+.mcb-results-section {
   background-color: #fff;
   padding: 20px;
+  margin-bottom: 20px;
   border-radius: 5px;
   overflow-x: auto;
 }
-.results-table {
+.mcb-results-table {
   width: 100%;
   border-collapse: collapse;
 }
-.results-table thead {
+.mcb-results-table thead {
   background-color: #007bff;
   color: #fff;
 }
-.results-table th,
-.results-table td {
+.mcb-results-table th,
+.mcb-results-table td {
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #ddd;
-  color: #000;
   font-size: 14px;
+  color: #000;
 }
-.results-table tr:nth-child(even) {
+.mcb-results-table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
+
+/* ====== Status Styles ====== */
 .status-confirmed {
   color: green;
   font-weight: bold;
@@ -113,7 +111,9 @@ body {
   color: red;
   font-weight: bold;
 }
-.action-btn {
+
+/* ====== Action Buttons ====== */
+.mcb-action-btn {
   padding: 6px 12px;
   font-size: 14px;
   border: none;
@@ -121,29 +121,29 @@ body {
   cursor: pointer;
   margin-right: 5px;
 }
-.modify-btn {
+.mcb-modify-btn {
   background-color: #6c757d;
   color: #fff;
 }
-.modify-btn:hover {
+.mcb-modify-btn:hover {
   background-color: #5a6268;
 }
-.cancel-btn {
+.mcb-cancel-btn {
   background-color: #dc3545;
   color: #fff;
 }
-.cancel-btn:hover {
+.mcb-cancel-btn:hover {
   background-color: #c82333;
 }
 
 /* ====== Modals ====== */
-.modal-overlay {
+.mcb-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0,0,0,0.5);
   display: none;
   align-items: center;
   justify-content: center;
@@ -151,8 +151,8 @@ body {
   padding: 20px;
   box-sizing: border-box;
 }
-.modal {
-  background: #fff;
+.mcb-modal {
+  background-color: #fff;
   width: 100%;
   max-width: 600px;
   max-height: 80vh;
@@ -160,22 +160,23 @@ body {
   border-radius: 8px;
   padding: 20px;
   position: relative;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
-.modal h2 {
+.mcb-modal h2 {
   margin-top: 0;
   font-size: 22px;
   color: #000;
+  margin-bottom: 10px;
 }
-.modal form label {
+.mcb-modal form label {
   display: block;
   margin: 10px 0 5px;
   font-weight: bold;
   color: #000;
 }
-.modal form input,
-.modal form select,
-.modal form textarea {
+.mcb-modal form input,
+.mcb-modal form select,
+.mcb-modal form textarea {
   width: 100%;
   padding: 8px;
   font-size: 14px;
@@ -184,57 +185,57 @@ body {
   border-radius: 3px;
   color: #000;
 }
-.form-row {
+.mcb-form-row {
   display: flex;
   gap: 10px;
 }
-.form-row > div {
+.mcb-form-row > div {
   flex: 1;
 }
-.modal-buttons {
+.mcb-modal-buttons {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
   margin-top: 10px;
 }
-.modal-buttons button {
+.mcb-modal-buttons button {
   padding: 8px 12px;
   font-size: 14px;
   border: none;
   border-radius: 3px;
   cursor: pointer;
 }
-.modal-save {
+.mcb-modal-save {
   background-color: #007bff;
   color: #fff;
 }
-.modal-save:hover {
+.mcb-modal-save:hover {
   background-color: #0056b3;
 }
-.modal-cancel {
+.mcb-modal-cancel {
   background-color: #6c757d;
   color: #fff;
 }
-.modal-cancel:hover {
+.mcb-modal-cancel:hover {
   background-color: #5a6268;
 }
-.modal-confirm {
+.mcb-modal-confirm {
   background-color: #dc3545;
   color: #fff;
 }
-.modal-confirm:hover {
+.mcb-modal-confirm:hover {
   background-color: #c82333;
 }
 
-/* ====== Responsive Adjustments ====== */
+/* ====== Responsive ====== */
 @media (max-width: 600px) {
-  .main-container {
-    margin: 0 10px;
-  }
-  .search-box {
+  .mcb-form-row {
     flex-direction: column;
   }
-  .form-row {
-    flex-direction: column;
+  .mcb-main-container {
+    margin-left: 0;
+  }
+  .mcb-results-table th, .mcb-results-table td {
+    font-size: 12px;
   }
 }
